@@ -1,0 +1,36 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aks-deployment12
+  labels:
+    app: aks
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: aks
+      labels:
+        app: aks
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": windows
+      containers:
+      - name: mmlsacrdev
+        image:    mmlsacrdev.azurecr.io/webapplication/v2
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: aks
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dockerapplicationfirst12
+spec:
+  selector:
+    app: aks
+  ports:
+    - port: 443
+  type: LoadBalancer  
