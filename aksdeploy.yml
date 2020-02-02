@@ -17,6 +17,11 @@ spec:
       containers:
       - name: mmlsacrdev
         image:    mmlsacrdev.azurecr.io/webapplication/v2
+        ports:
+        - containerPort: 14616
+          name: intra-node
+        - containerPort: 80
+          name: tls-intra-node
       restartPolicy: Always
   selector:
     matchLabels:
@@ -32,5 +37,5 @@ spec:
   selector:
     app: aks
   ports:
-    - port: 443
+    - port: 80
   type: LoadBalancer  
